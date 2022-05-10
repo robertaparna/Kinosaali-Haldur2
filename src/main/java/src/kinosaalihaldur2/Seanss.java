@@ -1,5 +1,9 @@
 package src.kinosaalihaldur2;
 
+import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ public class Seanss implements Comparable<Seanss>{
     // interval.overlaps(interval)\
     //datetime.plusMinutes(minuteid)
     //datetime string "yyyy-mm-ddThh:mm"
+
     public Seanss(String pealkiri, String kuupäev, String algus, int kestus, Saal saal) {
         String a = kuupäev+ "T"+ algus; // teeme uhe stringi kus on oiges formaadis kuupaev ja kellaaeg
         LocalDateTime b = LocalDateTime.parse(a); // votame sellest datetime objekti alguseks
@@ -150,7 +155,6 @@ public class Seanss implements Comparable<Seanss>{
     public boolean kohtVaba(int rida, int koht) {
         return kohaplaan.get(rida).get(koht) == 0;
     }
-
 
 
 

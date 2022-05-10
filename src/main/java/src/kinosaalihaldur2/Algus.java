@@ -15,6 +15,12 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Algus extends Application {
+    private static Stage pealava;
+    private BorderPane borderPane;
+
+    public static Stage getStage() {
+        return pealava;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -24,6 +30,7 @@ public class Algus extends Application {
     public void start(Stage peaLava) {
         Group juur = new Group();
         Scene stseen = new Scene(juur, 600, 400);
+        pealava = peaLava;
 
         //taustapilt
         //ma sain siit selle -> https://www.delftstack.com/howto/java/javafx-background-image/
@@ -56,6 +63,10 @@ public class Algus extends Application {
         saalHalda.setStyle("-fx-background-color: gray; -fx-border-color: black");
         saalHalda.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         saalHalda.setTextAlignment(TextAlignment.CENTER);
+        saalHalda.setOnAction(e -> {
+            SaalideHaldamine saal = new SaalideHaldamine();
+            peaLava.getScene().setRoot(saal.getBorderPane());
+        });
 
         //Kinokava haldamise nupp
         Button kinoHalda = new Button("Kinokava" + "\n" + "haldamine");
@@ -95,9 +106,11 @@ public class Algus extends Application {
         vBox.getChildren().add(gridpane);
         vBox.setBackground(bGround);
 
-
         juur.getChildren().add(vBox);
         peaLava.setScene(stseen);
         peaLava.show();
+    }
+    public Pane getBoarderPane(){
+        return borderPane;
     }
 }
