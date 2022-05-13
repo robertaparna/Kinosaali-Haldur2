@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 public class SaalideHaldamine {
     private final BorderPane borderPane;
     private static Stage pealava;
+    private Group juur;
 
     public static Stage getStage() {
         return pealava;
@@ -31,6 +32,7 @@ public class SaalideHaldamine {
 
     public SaalideHaldamine(){
         //main asjad
+        juur = new Group();
         borderPane = new BorderPane();
         borderPane.setPadding(new Insets(15));
         borderPane.setPrefSize(600,400);
@@ -44,7 +46,7 @@ public class SaalideHaldamine {
         tagasi.setAlignment(Pos.TOP_LEFT);
         tagasi.setOnAction(e -> {
             Algus algusesseTagasi = new Algus();
-            pealava.getScene().setRoot(algusesseTagasi.getBoarderPane());
+            pealava.getScene().setRoot(algusesseTagasi.getJuur());
         });
 
 
@@ -52,7 +54,7 @@ public class SaalideHaldamine {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
         hBox.setPrefSize(600,400);
-        hBox.setPadding(new Insets(10));
+        hBox.setPadding(new Insets(5));
         Text tekst = new Text("Saalide haldamine");
         tekst.setTextAlignment(TextAlignment.RIGHT);
         tekst.setFont(Font.font(null, FontWeight.BOLD, 20));
@@ -70,19 +72,17 @@ public class SaalideHaldamine {
 
         //vbox
         VBox vBox = new VBox();
-        vBox.setPrefSize(1000, 600); //panin prg, et see on sama suur kui juur
+        vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
 
 
         //Lõpu asjad
         vBox.getChildren().add(hBox1);
         vBox.getChildren().add(hBox);
-        borderPane.getChildren().add(vBox);
+        juur.getChildren().addAll(borderPane, vBox);
     }
 
-    public Pane getBorderPane(){
-        return borderPane;
+    public Group getJuur() {
+        return juur;
     }
-
-
 }

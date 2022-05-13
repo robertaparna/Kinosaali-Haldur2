@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class Algus extends Application {
     private static Stage pealava;
-    private BorderPane borderPane;
+    private Group juur;
 
     public static Stage getStage() {
         return pealava;
@@ -28,7 +28,7 @@ public class Algus extends Application {
 
     @Override
     public void start(Stage peaLava) {
-        Group juur = new Group();
+        juur = new Group();
         Scene stseen = new Scene(juur, 600, 400);
         pealava = peaLava;
 
@@ -65,7 +65,7 @@ public class Algus extends Application {
         saalHalda.setTextAlignment(TextAlignment.CENTER);
         saalHalda.setOnAction(e -> {
             SaalideHaldamine saal = new SaalideHaldamine();
-            peaLava.getScene().setRoot(saal.getBorderPane());
+            peaLava.getScene().setRoot(saal.getJuur());
         });
 
         //Kinokava haldamise nupp
@@ -110,7 +110,7 @@ public class Algus extends Application {
         peaLava.setScene(stseen);
         peaLava.show();
     }
-    public Pane getBoarderPane(){
-        return borderPane;
+    public Group getJuur() {
+        return juur;
     }
 }
