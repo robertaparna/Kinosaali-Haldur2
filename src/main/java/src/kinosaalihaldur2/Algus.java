@@ -14,9 +14,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Algus extends Application {
     private static Stage pealava;
-    private Group juur;
+    private Scene stseen;
 
     public static Stage getStage() {
         return pealava;
@@ -26,10 +29,16 @@ public class Algus extends Application {
         launch(args);
     }
 
+    List<Saal> saalid = new ArrayList<>();
+
+
     @Override
     public void start(Stage peaLava) {
-        juur = new Group();
-        Scene stseen = new Scene(juur, 600, 400);
+        saalid.add(new Saal("saal1", 3, 7));
+        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-07", "12:00", 90);
+        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-05", "12:00", 90);
+        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-06", "12:00", 90);
+
         pealava = peaLava;
 
         //taustapilt
@@ -39,7 +48,7 @@ public class Algus extends Application {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT);
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, true));
         Background bGround = new Background(bImg);
 
         //sulgemise nupp
@@ -64,8 +73,8 @@ public class Algus extends Application {
         saalHalda.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         saalHalda.setTextAlignment(TextAlignment.CENTER);
         saalHalda.setOnAction(e -> {
-            SaalideHaldamine saal = new SaalideHaldamine();
-            peaLava.getScene().setRoot(saal.getJuur());
+            SaalideHaldamine saal = new SaalideHaldamine(pealava, stseen, saalid);
+            peaLava.setScene(saal.getStseen());
         });
 
         //Kinokava haldamise nupp
@@ -89,28 +98,32 @@ public class Algus extends Application {
         //vbox
         VBox vBox = new VBox();
         vBox.setPrefSize(600,400); //panin prg, et see on sama suur kui juur
+        vBox.autosize();
         vBox.setPadding(new Insets(15));
 
         //Gridpane
         GridPane gridpane = new GridPane();
         gridpane.setHgap(25);
         gridpane.setVgap(25);
-        gridpane.setPrefSize(600,400);//panin prg, et see on sama suur kui juur
+//        gridpane.setPrefSize(600,400);//panin prg, et see on sama suur kui juur
         gridpane.add(osta, 0,0);
         gridpane.add(saalHalda, 1,0);
         gridpane.add(kinoHalda, 0,1);
         gridpane.add(salvesta, 1,1);
         gridpane.setAlignment(Pos.CENTER);
 
+
         vBox.getChildren().add(hBox);
         vBox.getChildren().add(gridpane);
         vBox.setBackground(bGround);
+        vBox.maxHeight(20000);
+        vBox.maxWidth(20000);
+        VBox.setVgrow(gridpane, Priority.ALWAYS);
 
-        juur.getChildren().add(vBox);
+//        juur.getChildren().add(vBox);
+        this.stseen = new Scene(vBox, 600, 400);
+
         peaLava.setScene(stseen);
         peaLava.show();
-    }
-    public Group getJuur() {
-        return juur;
     }
 }

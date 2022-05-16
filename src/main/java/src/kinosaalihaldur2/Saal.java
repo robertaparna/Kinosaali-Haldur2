@@ -110,6 +110,10 @@ public class Saal {
         return saal;
     }
 
+    public String getNimi() {
+        return nimi;
+    }
+
     @Override
     public String toString() {
         return nimi;
