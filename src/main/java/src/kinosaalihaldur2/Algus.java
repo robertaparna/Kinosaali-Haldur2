@@ -89,6 +89,10 @@ public class Algus extends Application {
         salvesta.setPrefSize(80, 35);
         salvesta.setStyle("-fx-background-color: gray; -fx-border-color: black");
         salvesta.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        salvesta.setOnAction( event -> {
+            Salvestamine salvestamine =  new Salvestamine(pealava, stseen);
+            pealava.setScene(salvestamine.getStseen());
+        });
 
         //hbox
         HBox hBox = new HBox(exit);
@@ -105,7 +109,6 @@ public class Algus extends Application {
         GridPane gridpane = new GridPane();
         gridpane.setHgap(25);
         gridpane.setVgap(25);
-//        gridpane.setPrefSize(600,400);//panin prg, et see on sama suur kui juur
         gridpane.add(osta, 0,0);
         gridpane.add(saalHalda, 1,0);
         gridpane.add(kinoHalda, 0,1);
@@ -120,7 +123,6 @@ public class Algus extends Application {
         vBox.maxWidth(20000);
         VBox.setVgrow(gridpane, Priority.ALWAYS);
 
-//        juur.getChildren().add(vBox);
         this.stseen = new Scene(vBox, 600, 400);
 
         peaLava.setScene(stseen);

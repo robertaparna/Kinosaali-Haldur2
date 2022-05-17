@@ -45,8 +45,6 @@ public class SaalideHaldamine {
 //        hBox.setPrefSize(300,30);
         hBox.setAlignment(Pos.TOP_LEFT);
 
-        Region vahe = new Region();
-        HBox.setHgrow(vahe, Priority.ALWAYS);
         //sulgemise nupp
         Button exit = new Button("Välju");
         exit.setOnAction((ActionEvent event) -> Platform.exit());
