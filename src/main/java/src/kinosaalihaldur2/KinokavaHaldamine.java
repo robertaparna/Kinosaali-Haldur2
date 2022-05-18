@@ -67,7 +67,7 @@ public class KinokavaHaldamine {
 
         BorderPane borderPane1 = new BorderPane(null, null, hBox1, null, hBox);
 
-        //VBOX
+        //vBox
         VBox vBox = new VBox();
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
@@ -78,6 +78,7 @@ public class KinokavaHaldamine {
         ObservableList<String> liigid = FXCollections.observableArrayList();
         liigid.addAll("Dokumentaalfilm", "Mängufilm", "Õudusfilm");
 
+        //Choicebox
         ChoiceBox<String> filmiliik = new ChoiceBox<>(liigid);
         filmiliik.setStyle("-fx-background-color: #f85700; -fx-border-color: WHITE;" +
                 "-fx-alignment: center");
@@ -97,6 +98,12 @@ public class KinokavaHaldamine {
         VBox.setVgrow(hBox,Priority.ALWAYS);
         this.stseen = new Scene(vBox);
     }
+
+    /**
+     * @param selectedItem valitud žanr
+     * Pärast valikut kuvatakse ekraanile "ankeet", kus saab välja täita
+     * ja seansi lisada
+     */
 
     private void avaVorm(String selectedItem) {
         if (selectedItem.equals("Dokumentaalfilm")) {
@@ -272,7 +279,6 @@ public class KinokavaHaldamine {
             grid.add(new Label("Vanusepiirang:"), 0,7);
             grid.add(vanusepiirang, 1, 7);
 
-
             vorm.getDialogPane().setContent(grid);
 
             vorm.setResultConverter(nupp -> {
@@ -285,9 +291,7 @@ public class KinokavaHaldamine {
             });
 
             Optional<List<String>> uusFilm = vorm.showAndWait();
-
             uusFilm.ifPresent(this::lisaOudusfilm);
-
         }
     }
 
@@ -353,7 +357,6 @@ public class KinokavaHaldamine {
             alert.setContentText("Filmi lisamisel tekkis viga, palun proovi uuesti");
             alert.showAndWait();
         }
-
     }
 
     private void lisaDokumentaal(List<String> andmed) {
@@ -386,12 +389,7 @@ public class KinokavaHaldamine {
             alert.setContentText("Filmi lisamisel tekkis viga, palun proovi uuesti");
             alert.showAndWait();
         }
-
     }
-
-    public Scene getStseen() {
-        return stseen;
-
-    }
+    public Scene getStseen() {return stseen;}
 }
 

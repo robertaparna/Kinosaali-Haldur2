@@ -36,8 +36,7 @@ public class SaalideHaldamine {
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, true));
         Background bGround = new Background(bImg);
 
-
-        //tagasi nupp
+        //"Tagasi" nupp
         Button tagasi = new Button();
         tagasi.setText("Tagasi");
         tagasi.setStyle("-fx-background-color: #2baafd; -fx-border-color: WHITE;-fx-text-fill: WHITE");
@@ -77,7 +76,6 @@ public class SaalideHaldamine {
         vBox.setPadding(new Insets(15));
         vBox.setSpacing(10);
 
-
         //ChoiceBox
         ObservableList<String> saalideNimed = FXCollections.observableArrayList();
         for (Saal saal : Rakendus.getSaalid()) {
@@ -113,16 +111,15 @@ public class SaalideHaldamine {
             vBox.getChildren().add(visuaalneKohaplaan(valitud.getKohaplaan()));
         });
 
-        //Lõpu asjad
-
         this.stseen = new Scene(vBox, 600, 400);
-
     }
 
+    public Scene getStseen() {return stseen;}
 
-    public Scene getStseen() {
-        return stseen;
-    }
+    /**
+     * @param kohaplaan klassist "Saal" kohaplaan
+     * @return tagastab vastava saali kohaplaani ekraanile
+     */
     public GridPane visuaalneKohaplaan(List<List<Integer>> kohaplaan) {
         Tooltip tooltip = new Tooltip("Valitud saali plaan");
         GridPane visuaalneKohaplaan = new GridPane();
@@ -130,8 +127,8 @@ public class SaalideHaldamine {
         visuaalneKohaplaan.setHgap(5);
         visuaalneKohaplaan.setVgap(5);
         //visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
-        visuaalneKohaplaan.setStyle("-fx-background-color: #FFFFFF00");
         visuaalneKohaplaan.setPadding(new Insets(0,10,10,10));
+        visuaalneKohaplaan.setStyle("-fx-background-color: #FFFFFF00");
         VBox.setVgrow(visuaalneKohaplaan, Priority.ALWAYS);
         Tooltip.install(visuaalneKohaplaan, tooltip);
 
@@ -143,5 +140,4 @@ public class SaalideHaldamine {
         }
         return visuaalneKohaplaan;
     }
-
 }

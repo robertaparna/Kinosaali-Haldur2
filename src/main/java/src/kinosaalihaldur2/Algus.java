@@ -49,15 +49,14 @@ public class Algus extends Application {
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, true));
         Background bGround = new Background(bImg);
 
-        //sulgemise nupp
+        //"Välju" nupp
         Button exit = new Button("Välju");
         exit.setOnAction((ActionEvent event) -> Platform.exit());
         exit.setPrefSize(60, 30);
         exit.setStyle("-fx-background-color: #f83a00; -fx-border-color:  black");
         exit.setFont(Font.font("Bauhaus 93", 12));
 
-
-        //Piletite ostmise nupp
+        //"Piletite ostmine" nupp
         Button osta = new Button("Piletite " + "\n" + "ostmine");
         osta.setPrefSize(100, 45);
         osta.setStyle("-fx-background-color: #f85700; -fx-border-color: #ffffff");
@@ -69,7 +68,7 @@ public class Algus extends Application {
             peaLava.setScene(pilet.getStseen());
         });
 
-        //Saalide haldamise nupp
+        //"Saalide haldamine" nupp
         Button saalHalda = new Button("Saalide " + "\n" + "haldamine");
         saalHalda.setPrefSize(100, 45);
         saalHalda.setStyle("-fx-background-color: #f85700; -fx-border-color: #ffffff");
@@ -81,7 +80,7 @@ public class Algus extends Application {
             peaLava.setScene(saal.getStseen());
         });
 
-        //Kinokava haldamise nupp
+        //"Kinokava haldamine" nupp
         Button kinoHalda = new Button("Kinokava" + "\n" + "haldamine");
         kinoHalda.setPrefSize(100, 45);
         kinoHalda.setStyle("-fx-background-color: #f85700; -fx-border-color: #ffffff");
@@ -93,7 +92,7 @@ public class Algus extends Application {
             peaLava.setScene(kino.getStseen());
         });
 
-        //Salvestamise nupp
+        //"Salvestamine" nupp
         Button salvesta = new Button("Salvesta");
         salvesta.setPrefSize(100, 45);
         salvesta.setStyle("-fx-background-color: #f85700; -fx-border-color: #ffffff");
@@ -104,7 +103,6 @@ public class Algus extends Application {
             pealava.setScene(salvestamine.getStseen());
         });
 
-
         //hbox
         HBox hBox = new HBox(exit);
         hBox.setPrefSize(100,100);
@@ -112,7 +110,7 @@ public class Algus extends Application {
 
         //vbox
         VBox vBox = new VBox();
-        vBox.setPrefSize(600,400); //panin prg, et see on sama suur kui juur
+        vBox.setPrefSize(600,400); //Sama suur kui stseen
         vBox.autosize();
         vBox.setPadding(new Insets(15));
 
@@ -120,7 +118,6 @@ public class Algus extends Application {
         GridPane gridpane = new GridPane();
         gridpane.setHgap(25);
         gridpane.setVgap(25);
-        //gridpane.setPrefSize(600,400);//panin prg, et see on sama suur kui juur
         gridpane.add(osta, 0,0);
         gridpane.add(saalHalda, 1,0);
         gridpane.add(kinoHalda, 0,1);
@@ -136,7 +133,6 @@ public class Algus extends Application {
         VBox.setVgrow(gridpane, Priority.ALWAYS);
 
         this.stseen = new Scene(vBox, 600, 400);
-
         peaLava.setScene(stseen);
         peaLava.show();
     }

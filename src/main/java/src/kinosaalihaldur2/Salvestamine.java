@@ -26,13 +26,10 @@ public class Salvestamine {
     List<String> salvestusfailid = new ArrayList<>();
 
     private final String salvestusfailidNimi = "seis.bin";
-    public Scene getStseen() {
-        return stseen;
-    }
+
+    public Scene getStseen() {return stseen;}
 
     public Salvestamine(Stage pealava, Scene eelmine) {
-
-
 
         try(DataInputStream dis = new DataInputStream(new FileInputStream(salvestusfailidNimi))) {
             int pikkus = dis.readInt();
@@ -43,7 +40,7 @@ public class Salvestamine {
             throw new RuntimeException(e);
         }
 
-        //tagasi nupp
+        //"Tagasi" nupp
         Button tagasi = new Button();
         tagasi.setText("Tagasi");
         tagasi.setStyle("-fx-background-color: #c50000; -fx-border-color:  WHITE; -fx-text-fill: WHITE");
@@ -51,7 +48,7 @@ public class Salvestamine {
         tagasi.setAlignment(Pos.TOP_LEFT);
         tagasi.setOnAction(e -> pealava.setScene(eelmine));
 
-        //tekstikast ja hbox
+        //Tekstikast ja hbox
         HBox hBox = new HBox();
         hBox.setSpacing(10);
         hBox.setPadding(new Insets(5));
@@ -62,10 +59,10 @@ public class Salvestamine {
         hBox.getChildren().addAll(tagasi,tekst);
         hBox.setAlignment(Pos.TOP_LEFT);
 
+        //"Välju" nupp
         Button exit = new Button("Välju");
         exit.setOnAction((ActionEvent event) -> Platform.exit());
-        exit.setPrefSize(60, 30);
-        exit.setStyle("-fx-background-color: #f83a00; -fx-border-color:  black");
+        exit.setStyle("-fx-background-color: #c50000; -fx-border-color:  black");
         exit.setFont(Font.font("Bauhaus 93", 12));
         HBox hBox1 = new HBox(exit);
         hBox1.setPrefSize(100,100);
@@ -73,11 +70,12 @@ public class Salvestamine {
 
 
 
-
+        //"Failist laadimine" nupp
         Button laeFailist = new Button("Lae failist");
         laeFailist.setPrefSize(100, 30);
         laeFailist.setFont(Font.font("Bauhaus 93",  12));
         laeFailist.setLineSpacing(5);
+        laeFailist.setStyle("-fx-background-color: #2baafd;-fx-text-fill: WHITE;-fx-border-color: WHITE;");
         laeFailist.setOnAction(event -> {
             ChoiceDialog<String> laeNimi = new ChoiceDialog<>("", salvestusfailid);
             laeNimi.setTitle("Laadimine");
@@ -87,10 +85,12 @@ public class Salvestamine {
             vastus.ifPresent(this::laeFailist);
         });
 
+        //"Faili salvestamine" nupp
         Button salvestaFaili = new Button("Salvesta faili");
         salvestaFaili.setPrefSize(100, 30);
         salvestaFaili.setFont(Font.font("Bauhaus 93",  12));
         salvestaFaili.setLineSpacing(5);
+        salvestaFaili.setStyle("-fx-background-color: #c42537;-fx-text-fill: WHITE;-fx-border-color: WHITE");
         salvestaFaili.setOnAction(event -> {
 
             TextInputDialog salvestaNimi = new TextInputDialog();
@@ -108,7 +108,6 @@ public class Salvestamine {
                 });
         });
 
-
         HBox nupud = new HBox(laeFailist, salvestaFaili);
         nupud.setAlignment(Pos.BASELINE_CENTER);
         nupud.setSpacing(10);
@@ -116,16 +115,15 @@ public class Salvestamine {
 
         BorderPane borderPane1 = new BorderPane(null, null, hBox1, null, hBox);
         BorderPane borderPane = new BorderPane(nupud, null, null, null, null);
+
         //vbox
         VBox vBox = new VBox();
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
-        vBox.setStyle("-fx-background-color: #626266");
+        vBox.setStyle("-fx-background-color: rgba(72,58,45,0.66)");
 
         vBox.getChildren().addAll(borderPane1, borderPane);
         this.stseen = new Scene(vBox);
-
-
     }
 
     private void lisaSalvestusfail(String vastus) throws IOException {

@@ -72,7 +72,7 @@ public class PiletiOstmine {
         hBox1.setPrefSize(100,50); //see mõjutab choiceboxi kaugust tekstist praegu
         hBox1.setAlignment(Pos.TOP_RIGHT);
 
-        //CHOICEBOX
+        //Choicebox
         List<String> kp = Rakendus.getKuupäevad();
         ObservableList<String> kuupaevad = FXCollections.observableArrayList();
         kuupaevad.addAll(kp);
@@ -95,7 +95,7 @@ public class PiletiOstmine {
         kuupaev.setValue("Vali sobiv kuupäev");
         BorderPane borderPane1 = new BorderPane(null, null, hBox1, null, hBox);
 
-
+        //"Osta" - pileti ostmise nupp
         Button osta = new Button("Osta piletid");
         osta.setAlignment(Pos.BOTTOM_LEFT);
         osta.setTextAlignment(TextAlignment.CENTER);
@@ -130,7 +130,6 @@ public class PiletiOstmine {
         });
 
         valikud.setSpacing(10);
-
         valikud.getChildren().addAll(kuupaev, pealkiri);
         content.getChildren().add(valikud);
 
@@ -160,7 +159,7 @@ public class PiletiOstmine {
         pealkiri.setValue("Vali sobiv seanss");
 
 
-        //VBOX
+        //vBox
         VBox vBox = new VBox();
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
@@ -175,6 +174,10 @@ public class PiletiOstmine {
         this.stseen = new Scene(vBox);
     }
 
+    /**
+     * @param kuupaev valitud kuupäev
+     * @return Seansid, mis sellel kuupäeval on
+     */
     public ObservableList<String> seaSeansid(String kuupaev) {
         ObservableList<String> seanssideNimed = FXCollections.observableArrayList();
         List<Seanss> seansidKuupaeval = Rakendus.valiSeanss(kuupaev);
@@ -186,10 +189,12 @@ public class PiletiOstmine {
         return seanssideNimed;
     }
 
-    public Scene getStseen() {
-        return stseen;
-    }
+    public Scene getStseen() {return stseen;}
 
+    /**
+     * @param seansiNimi Valitud seansi nimi
+     * @return valitud seansi kohaplaan kuvatakse ekraanile
+     */
     public GridPane visuaalneKohaplaanNupud(String seansiNimi) {
         Seanss valitud = null;
         for (Seanss seanss : seansid) {
@@ -206,7 +211,6 @@ public class PiletiOstmine {
             visuaalneKohaplaan.setAlignment(Pos.BASELINE_CENTER);
             visuaalneKohaplaan.setHgap(5);
             visuaalneKohaplaan.setVgap(5);
-            //visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
             visuaalneKohaplaan.setStyle("-fx-background-color: #FFFFFF00");
             visuaalneKohaplaan.setPadding(new Insets(0, 10,10, 10));
 
@@ -244,7 +248,6 @@ public class PiletiOstmine {
                     visuaalneKohaplaan.add(koht, j, i);
                 }
             }
-
         }
         return visuaalneKohaplaan;
     }
