@@ -82,16 +82,19 @@ public class PiletiOstmine {
         kuupaev.setStyle("-fx-background-color: rgba(197,0,0,0.81); -fx-border-color: WHITE;" +
                 "-fx-alignment: center");
 
+        HBox content = new HBox();
+        VBox valikud = new VBox();
         ChoiceBox<String> pealkiri = new ChoiceBox<>();
         kuupaev.setOnAction(event -> {
             pealkiri.setItems(seaSeansid(kuupaev.getSelectionModel().getSelectedItem()));
+            if (valikud.getChildren().size() > 2){
+                valikud.getChildren().remove(2, 4);
+            }
         });
         kuupaev.setPrefSize(200,30);
         kuupaev.setValue("Vali sobiv kuupäev");
         BorderPane borderPane1 = new BorderPane(null, null, hBox1, null, hBox);
 
-        HBox content = new HBox();
-        VBox valikud = new VBox();
 
         Button osta = new Button("Osta piletid");
         osta.setAlignment(Pos.BOTTOM_LEFT);
@@ -137,6 +140,9 @@ public class PiletiOstmine {
             }
             content.getChildren().add(visuaalneKohaplaanNupud(pealkiri.getSelectionModel().getSelectedItem()));
             if(praeguneSeanss != null) {
+                if (valikud.getChildren().size() > 2){
+                    valikud.getChildren().remove(2, 4);
+                }
                 Text info = new Text(praeguneSeanss.toString());
                 info.setFill(Color.WHITE);
                 valikud.getChildren().addAll(info, osta);

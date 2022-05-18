@@ -1,11 +1,14 @@
 package src.kinosaalihaldur2;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -67,6 +70,20 @@ public class KinokavaHaldamine {
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
         vBox.getChildren().addAll(borderPane1);
+
+        VBox vBox1 = new VBox();
+
+        ObservableList<String> liigid = FXCollections.observableArrayList();
+        liigid.addAll("Dokumentaalfilm", "Mängufilm", "Õudusfilm");
+
+        ChoiceBox<String> filmiliik = new ChoiceBox<>(liigid);
+        filmiliik.setStyle("-fx-background-color: #f85700; -fx-border-color: WHITE;" +
+                "-fx-alignment: center");
+        filmiliik.setPrefSize(250,30);
+        filmiliik.setValue("Mis liiki filmi soovid kavasse lisada?");
+        vBox1.getChildren().add(filmiliik);
+        vBox1.setAlignment(Pos.BASELINE_CENTER);
+        vBox.getChildren().add(vBox1);
 
         //Lõpu asjad
         vBox.setBackground(bGround);
