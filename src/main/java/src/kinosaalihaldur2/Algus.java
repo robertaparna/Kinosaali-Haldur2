@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -20,10 +19,6 @@ import java.util.List;
 public class Algus extends Application {
     private static Stage pealava;
     private Scene stseen;
-
-    public static Stage getStage() {
-        return pealava;
-    }
 
     public static void main(String[] args) {
         launch(args);

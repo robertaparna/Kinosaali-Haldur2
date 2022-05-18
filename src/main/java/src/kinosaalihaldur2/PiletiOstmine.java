@@ -111,6 +111,7 @@ public class PiletiOstmine {
                 kuupaev.setValue("Vali sobiv kuupäev");
                 pealkiri.setValue("Vali sobiv seanss");
                 alert.showAndWait();
+
                 if(content.getChildren().size() == 2) {
                     content.getChildren().remove(1);
                 }
@@ -145,19 +146,21 @@ public class PiletiOstmine {
                 }
                 Text info = new Text(praeguneSeanss.toString());
                 info.setFill(Color.WHITE);
-                valikud.getChildren().addAll(info, osta);
+                FlowPane flowPane = new FlowPane(info);
+                flowPane.setStyle("-fx-background-color: rgba(197,0,0,0.45)");
+                flowPane.setPrefSize(200,120);
+                valikud.getChildren().addAll(flowPane, osta);
             }
         });
         pealkiri.setPrefSize(200,30);
         pealkiri.setValue("Vali sobiv seanss");
 
 
-
-
         //VBOX
         VBox vBox = new VBox();
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
+        content.setSpacing(20); //vahe choiceboxi ja kohaplaani vahel
         vBox.getChildren().addAll(borderPane1, content);
 
         //Lõpu asjad
@@ -199,17 +202,25 @@ public class PiletiOstmine {
             visuaalneKohaplaan.setAlignment(Pos.BASELINE_CENTER);
             visuaalneKohaplaan.setHgap(5);
             visuaalneKohaplaan.setVgap(5);
-            visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
-            visuaalneKohaplaan.setPadding(new Insets(10));
+            //visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
+            visuaalneKohaplaan.setStyle("-fx-background-color: #FFFFFF00");
+            visuaalneKohaplaan.setPadding(new Insets(0, 10,10, 10));
+
+            //Tooltipid
+            Tooltip tp1 = new Tooltip("See koht on vaba");
+            Tooltip tp2 = new Tooltip("See koht on võetud");
+            Tooltip tp3 = new Tooltip("Teie valitud koht");
 
             for (int i = 0; i < valitud.getKohaplaan().size(); i++) {
                 for (int j = 0; j < valitud.getKohaplaan().get(0).size(); j++) {
                     Rectangle koht = new Rectangle(25,25);
                     if(valitud.kohtVaba(i, j)) {
-                        koht.setFill(Color.GREEN);
+                        koht.setFill(Color.LIMEGREEN);
+                        Tooltip.install(koht, tp1);
                     }
                     else {
                         koht.setFill(Color.RED);
+                        Tooltip.install(koht, tp2);
                     }
                     int finalI = i;
                     int finalJ = j;
@@ -218,10 +229,12 @@ public class PiletiOstmine {
                         if(finalValitud.kohtVaba(finalI, finalJ)) {
                             koht.setFill(Color.PURPLE);
                             finalValitud.valiKoht(finalI, finalJ);
+                            Tooltip.install(koht, tp3);
                         }
                         else if(finalValitud.getKohaplaan().get(finalI).get(finalJ) == 2) {
-                            koht.setFill(Color.GREEN);
+                            koht.setFill(Color.LIMEGREEN);
                             finalValitud.getKohaplaan().get(finalI).set(finalJ, 0);
+                            Tooltip.install(koht, tp1);
                         }
                     });
                     visuaalneKohaplaan.add(koht, j, i);

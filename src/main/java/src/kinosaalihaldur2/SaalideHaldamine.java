@@ -13,7 +13,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -131,8 +130,8 @@ public class SaalideHaldamine {
         visuaalneKohaplaan.setHgap(5);
         visuaalneKohaplaan.setVgap(5);
         //visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
-        visuaalneKohaplaan.setStyle("-fx-background-color: FFFFFF00");
-        visuaalneKohaplaan.setPadding(new Insets(10));
+        visuaalneKohaplaan.setStyle("-fx-background-color: #FFFFFF00");
+        visuaalneKohaplaan.setPadding(new Insets(0,10,10,10));
         VBox.setVgrow(visuaalneKohaplaan, Priority.ALWAYS);
         Tooltip.install(visuaalneKohaplaan, tooltip);
 

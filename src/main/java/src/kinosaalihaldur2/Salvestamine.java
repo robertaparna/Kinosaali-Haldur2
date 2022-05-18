@@ -13,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class Salvestamine {
-
     private Scene stseen;
     List<String> salvestusfailid = new ArrayList<>();
 
@@ -51,9 +49,7 @@ public class Salvestamine {
         tagasi.setStyle("-fx-background-color: #c50000; -fx-border-color:  WHITE; -fx-text-fill: WHITE");
         tagasi.setFont(Font.font("Bauhaus 93", 13));
         tagasi.setAlignment(Pos.TOP_LEFT);
-        tagasi.setOnAction(e -> {
-            pealava.setScene(eelmine);
-        });
+        tagasi.setOnAction(e -> pealava.setScene(eelmine));
 
         //tekstikast ja hbox
         HBox hBox = new HBox();
