@@ -6,11 +6,24 @@ import java.util.*;
 
 public class Rakendus {
     static List<Saal> saalid = new ArrayList<>();
+
+    public static List<Saal> getSaalid() {
+        return saalid;
+    }
+
+    public static void saalidAlgus() {
+        saalid.add(new Saal("saal3", 3, 7));
+        saalid.add(new Saal("saal4", 5, 9));
+        new Mangufilm("Fight Club", saalid.get(0),"marul","Brad Pitt","2022-04-07", "12:00", 90);
+        new Oudusfilm("Saw", saalid.get(0),"psyhholoogiline triller","Tobin Bell", 16, "2022-04-05", "12:00", 90);
+        new Dokumentaalfilm("Planet Earth", "2022-04-06", "12:00", 90, saalid.get(0), "BBC", "loodus");
+    }
+
+    public static void setSaalid(List<Saal> saalid) {
+        Rakendus.saalid = saalid;
+    }
+
     public static void main(String[] args) {
-        saalid.add(new Saal("saal1", 3, 7));
-        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-07", "12:00", 90);
-        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-05", "12:00", 90);
-        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-06", "12:00", 90);
         while(true) {
             Scanner in = new Scanner(System.in);
             System.out.println("Tere tulemast!");
@@ -59,7 +72,7 @@ public class Rakendus {
      * valjastab koik seansid, mis on broneeritud kuupaevale kuupaev ja laseb kasutajal valida, millisele pilet osta
      * @param kuupaev valitud kuupaev
      */
-    public static void valiSeanss(String kuupaev) {
+    public static List<Seanss> valiSeanss(String kuupaev) {
         List<Seanss> toimuvadSeansid = new ArrayList<>(); //kõik kasutaja valitul kuupäeval toimuvad seansid kõikidest saalidest
         Scanner in = new Scanner(System.in);
         for (int i = 0; i < saalid.size(); i++) { //lisame kõik asjakohased seansid listi
@@ -68,10 +81,11 @@ public class Rakendus {
         for (int i = 0; i < toimuvadSeansid.size(); i++) {
             System.out.println(i+1 + ". "  + toimuvadSeansid.get(i));
         }
-        System.out.println("Palun sisestage soovitud seansi ees olev number: ");
-        int kasutajaValik = Integer.parseInt(in.nextLine());
-        Seanss kasutajaValitudSeanss = toimuvadSeansid.get(kasutajaValik-1);
-        piletiteValimine(kasutajaValitudSeanss); //lisasin
+//        System.out.println("Palun sisestage soovitud seansi ees olev number: ");
+//        int kasutajaValik = Integer.parseInt(in.nextLine());
+//        Seanss kasutajaValitudSeanss = toimuvadSeansid.get(kasutajaValik-1);
+//        piletiteValimine(kasutajaValitudSeanss); //lisasin
+        return toimuvadSeansid;
     }
 
     /**

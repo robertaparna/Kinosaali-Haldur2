@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -47,8 +48,8 @@ public class Salvestamine {
         //tagasi nupp
         Button tagasi = new Button();
         tagasi.setText("Tagasi");
-        tagasi.setStyle("-fx-background-color: gray; -fx-border-color: black;-fx-text-fill: Yellow");
-        tagasi.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        tagasi.setStyle("-fx-background-color: #c50000; -fx-border-color:  WHITE; -fx-text-fill: WHITE");
+        tagasi.setFont(Font.font("Bauhaus 93", 13));
         tagasi.setAlignment(Pos.TOP_LEFT);
         tagasi.setOnAction(e -> {
             pealava.setScene(eelmine);
@@ -59,15 +60,17 @@ public class Salvestamine {
         hBox.setSpacing(10);
         hBox.setPadding(new Insets(5));
         Text tekst = new Text("Salvestamine");
-        tekst.setFont(Font.font(null, FontWeight.BOLD, 20));
+        tekst.setFont(Font.font("Bauhaus 93",  24));
+        tekst.setFill(Color.WHITE);
+        tekst.setLineSpacing(5);
         hBox.getChildren().addAll(tagasi,tekst);
         hBox.setAlignment(Pos.TOP_LEFT);
 
         Button exit = new Button("Välju");
         exit.setOnAction((ActionEvent event) -> Platform.exit());
         exit.setPrefSize(60, 30);
-        exit.setStyle("-fx-background-color: red; -fx-border-color:  black");
-        exit.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        exit.setStyle("-fx-background-color: #f83a00; -fx-border-color:  black");
+        exit.setFont(Font.font("Bauhaus 93", 12));
         HBox hBox1 = new HBox(exit);
         hBox1.setPrefSize(100,100);
         hBox1.setAlignment(Pos.TOP_RIGHT);
@@ -77,20 +80,21 @@ public class Salvestamine {
 
         Button laeFailist = new Button("Lae failist");
         laeFailist.setPrefSize(100, 30);
-        laeFailist.setStyle("-fx-background-color: red; -fx-border-color:  black");
-        laeFailist.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        laeFailist.setFont(Font.font("Bauhaus 93",  12));
+        laeFailist.setLineSpacing(5);
         laeFailist.setOnAction(event -> {
             ChoiceDialog<String> laeNimi = new ChoiceDialog<>("", salvestusfailid);
             laeNimi.setTitle("Laadimine");
             laeNimi.setHeaderText("");
             laeNimi.setContentText("Sisesta failinimi, millest soovid kino laadida: ");
-            laeNimi.show();
+            Optional<String> vastus = laeNimi.showAndWait();
+            vastus.ifPresent(this::laeFailist);
         });
 
         Button salvestaFaili = new Button("Salvesta faili");
         salvestaFaili.setPrefSize(100, 30);
-        salvestaFaili.setStyle("-fx-background-color: red; -fx-border-color:  black");
-        salvestaFaili.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        salvestaFaili.setFont(Font.font("Bauhaus 93",  12));
+        salvestaFaili.setLineSpacing(5);
         salvestaFaili.setOnAction(event -> {
 
             TextInputDialog salvestaNimi = new TextInputDialog();
@@ -134,6 +138,7 @@ public class Salvestamine {
             throw new RuntimeException("fail on juba olemas");
         }else{
             salvestusfailid.add(vastus + ".bin");
+            salvestaFaili(uusSalvestusFail);
             uuendaFail();
         }
     }
@@ -155,6 +160,100 @@ public class Salvestamine {
             for (String s : salvestusfailid) {
                 dos.writeUTF(s);
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void salvestaFaili(File uusFail) throws IOException {
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(uusFail))){
+            List<Saal> saalid = Rakendus.getSaalid();
+            int saalideArv = saalid.size();
+            dos.writeInt(saalideArv);
+            for (Saal saal : saalid) {
+                String saaliNimi = saal.getNimi();
+                dos.writeUTF(saaliNimi);
+                List<List<Integer>> kohaplaan = saal.getKohaplaan();
+                int ridadeArv = kohaplaan.size();
+                dos.writeInt(ridadeArv);
+                int kohtadeArv = kohaplaan.get(0).size();
+                dos.writeInt(kohtadeArv);
+                List<Seanss> broneeringud = saal.getBroneeringud();
+                int broneeringuteArv = broneeringud.size();
+                dos.writeInt(broneeringuteArv);
+                for (Seanss seanss : broneeringud) {
+                    if(seanss instanceof Mangufilm){
+                        if(seanss instanceof Oudusfilm){
+                            dos.writeUTF("o");
+                            dos.writeInt(((Oudusfilm) seanss).getVanusepiirang());
+                        }else{
+                            dos.writeUTF("m");
+                        }
+                        dos.writeUTF(seanss.getPealkiri());
+                        dos.writeUTF(((Mangufilm) seanss).getŽanr());
+                        dos.writeUTF(((Mangufilm) seanss).getNäitlejad());
+                        dos.writeUTF(seanss.getKuupäev());
+                        dos.writeUTF(seanss.getAlgus());
+                        dos.writeInt(seanss.getKestus());
+
+                    } else if (seanss instanceof Dokumentaalfilm) {
+                        dos.writeUTF("d");
+                        dos.writeUTF(seanss.getPealkiri());
+                        dos.writeUTF(seanss.getKuupäev());
+                        dos.writeUTF(seanss.getAlgus());
+                        dos.writeInt(seanss.getKestus());
+                        dos.writeUTF(((Dokumentaalfilm)seanss).getTegijad());
+                        dos.writeUTF(((Dokumentaalfilm) seanss).getTeema());
+                    }
+                }
+            }
+        }
+    }
+
+    private void laeFailist(String failinimi) {
+        try(DataInputStream dis = new DataInputStream(new FileInputStream(failinimi))) {
+            List<Saal> uuedSaalid = new ArrayList<>();
+            int saalideArv = dis.readInt();
+            for (int i = 0; i < saalideArv; i++) {
+                String nimi = dis.readUTF();
+                int ridadeArv = dis.readInt();
+                int kohtadeArv = dis.readInt();
+                Saal uusSaal = new Saal(nimi,ridadeArv,kohtadeArv);
+                int broneeringuteArv = dis.readInt();
+                for (int j = 0; j < broneeringuteArv; j++) {
+                    String liik = dis.readUTF();
+                    if(liik.equals("o")) {
+                        int vanusepiirang = dis.readInt();
+                        String pealkiri = dis.readUTF();
+                        String zanr = dis.readUTF();
+                        String naitlejad = dis.readUTF();
+                        String kuupaev = dis.readUTF();
+                        String algus = dis.readUTF();
+                        int kestus = dis.readInt();
+                        new Oudusfilm(pealkiri, uusSaal, zanr, naitlejad,vanusepiirang,kuupaev,algus,kestus);
+                    }
+                    if(liik.equals("m")) {
+                        String pealkiri = dis.readUTF();
+                        String zanr = dis.readUTF();
+                        String naitlejad = dis.readUTF();
+                        String kuupaev = dis.readUTF();
+                        String algus = dis.readUTF();
+                        int kestus = dis.readInt();
+                        new Mangufilm(pealkiri, uusSaal, zanr, naitlejad ,kuupaev,algus,kestus);
+                    }
+                    if(liik.equals("d")) {
+                        String pealkiri = dis.readUTF();
+                        String kuupaev = dis.readUTF();
+                        String algus = dis.readUTF();
+                        int kestus = dis.readInt();
+                        String tegijad = dis.readUTF();
+                        String teema = dis.readUTF();
+                        new Dokumentaalfilm(pealkiri,kuupaev,algus,kestus, uusSaal, tegijad, teema);
+                    }
+                }
+                uuedSaalid.add(uusSaal);
+            }
+            Rakendus.setSaalid(uuedSaalid);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

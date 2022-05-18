@@ -12,6 +12,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class SaalideHaldamine {
     private Scene stseen;
 
-    public SaalideHaldamine(Stage pealava, Scene eelmine, List<Saal> saalid){
+    public SaalideHaldamine(Stage pealava, Scene eelmine){
 
         //Taust
         Image img = new Image("https://entrepreneurship.babson.edu/wp-content/uploads/2020/10/Movie-1200-630.jpg");
@@ -73,11 +75,12 @@ public class SaalideHaldamine {
         VBox vBox = new VBox();
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
+        vBox.setSpacing(10);
 
 
         //ChoiceBox
         ObservableList<String> saalideNimed = FXCollections.observableArrayList();
-        for (Saal saal : saalid) {
+        for (Saal saal : Rakendus.getSaalid()) {
             saalideNimed.add(saal.getNimi());
         }
         AtomicReference<String> valitudSaal = new AtomicReference<>("");
@@ -89,16 +92,29 @@ public class SaalideHaldamine {
         choiceBox.setPrefSize(200,30);
         choiceBox.setValue("Vali sobiv saal");
 
-
-        choiceBox.setOnAction(event -> valitudSaal.set(choiceBox.getSelectionModel().getSelectedItem()));
-
-        //Lõpu asjad
         vBox.setBackground(bGround);
         vBox.maxHeight(20000);
         vBox.maxWidth(20000);
         VBox.setVgrow(hBox,Priority.ALWAYS);
         vBox.getChildren().add(borderPane1);
         vBox.getChildren().add(choiceBox);
+
+        choiceBox.setOnAction(event -> {
+            valitudSaal.set(choiceBox.getSelectionModel().getSelectedItem());
+            Saal valitud = null;
+            if(vBox.getChildren().size() == 3){
+                vBox.getChildren().remove(2);
+            }
+            for (Saal saal : Rakendus.getSaalid()) {
+                if(saal.getNimi().equals(valitudSaal.toString())){
+                    valitud = saal;
+                }
+            }
+            vBox.getChildren().add(visuaalneKohaplaan(valitud.getKohaplaan()));
+        });
+
+        //Lõpu asjad
+
         this.stseen = new Scene(vBox, 600, 400);
 
     }
@@ -106,6 +122,22 @@ public class SaalideHaldamine {
 
     public Scene getStseen() {
         return stseen;
+    }
+    public GridPane visuaalneKohaplaan(List<List<Integer>> kohaplaan) {
+        GridPane visuaalneKohaplaan = new GridPane();
+        visuaalneKohaplaan.setAlignment(Pos.BASELINE_CENTER);
+        visuaalneKohaplaan.setHgap(5);
+        visuaalneKohaplaan.setVgap(5);
+        visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
+        visuaalneKohaplaan.setPadding(new Insets(10));
+
+        for (int i = 0; i < kohaplaan.size(); i++) {
+            for (int j = 0; j < kohaplaan.get(0).size(); j++) {
+                Rectangle koht = new Rectangle(25, 25, Color.GREEN);
+                visuaalneKohaplaan.add(koht, j, i);
+            }
+        }
+        return visuaalneKohaplaan;
     }
 
 }

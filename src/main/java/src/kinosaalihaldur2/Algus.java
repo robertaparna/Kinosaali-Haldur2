@@ -30,16 +30,19 @@ public class Algus extends Application {
         launch(args);
     }
 
-    List<Saal> saalid = new ArrayList<>();
+    private List<Saal> saalid = new ArrayList<>();
 
+    public List<Saal> getSaalid() {
+        return saalid;
+    }
+
+    public void setSaalid(List<Saal> saalid) {
+        this.saalid = saalid;
+    }
 
     @Override
     public void start(Stage peaLava) {
-        saalid.add(new Saal("saal1", 3, 7));
-        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-07", "12:00", 90);
-        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-05", "12:00", 90);
-        new Mangufilm("nrsg", saalid.get(0),"gfvgh","fvygubh","2022-04-06", "12:00", 90);
-
+        Rakendus.saalidAlgus();
         pealava = peaLava;
 
         //taustapilt
@@ -80,7 +83,7 @@ public class Algus extends Application {
         saalHalda.setTextFill(Color.WHITE);
         saalHalda.setTextAlignment(TextAlignment.CENTER);
         saalHalda.setOnAction(e -> {
-            SaalideHaldamine saal = new SaalideHaldamine(pealava, stseen, saalid);
+            SaalideHaldamine saal = new SaalideHaldamine(pealava, stseen);
             peaLava.setScene(saal.getStseen());
         });
 

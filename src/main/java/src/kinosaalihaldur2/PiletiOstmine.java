@@ -15,12 +15,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 
 public class PiletiOstmine {
     private Scene stseen;
+    private ObservableList<String> seanssideNimed = FXCollections.observableArrayList();
+
 
     public PiletiOstmine(Stage pealava, Scene eelmine) {
 
@@ -70,22 +74,49 @@ public class PiletiOstmine {
         ObservableList<String> kuupaevad = FXCollections.observableArrayList();
         kuupaevad.addAll(kp);
 
-        AtomicReference<String> valitudKuupaev = new AtomicReference<>("");
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.setItems(kuupaevad);
-        choiceBox.setStyle("-fx-background-color: rgba(197,0,0,0.81); -fx-border-color: WHITE;" +
+        ChoiceBox<String> kuupaev = new ChoiceBox<>();
+        kuupaev.setItems(kuupaevad);
+        kuupaev.setStyle("-fx-background-color: rgba(197,0,0,0.81); -fx-border-color: WHITE;" +
                 "-fx-alignment: center");
 
-        choiceBox.setOnAction(event -> valitudKuupaev.set(choiceBox.getSelectionModel().getSelectedItem()));
-        choiceBox.setPrefSize(200,30);
-        choiceBox.setValue("Vali sobiv kuupäev");
+        ChoiceBox<String> pealkiri = new ChoiceBox<>();
+        kuupaev.setOnAction(event -> {
+            pealkiri.setItems(seaSeansid(kuupaev.getSelectionModel().getSelectedItem()));
+        });
+        kuupaev.setPrefSize(200,30);
+        kuupaev.setValue("Vali sobiv kuupäev");
         BorderPane borderPane1 = new BorderPane(null, null, hBox1, null, hBox);
+
+
+
+        pealkiri.setItems(seanssideNimed);
+        pealkiri.setStyle("-fx-background-color: rgba(197,0,0,0.81); -fx-border-color: WHITE;" +
+                "-fx-alignment: center");
+
+//        pealkiri.setOnAction(event -> valitudKuupaev.set(kuupaev.getSelectionModel().getSelectedItem()));
+        pealkiri.setPrefSize(200,30);
+        pealkiri.setValue("Vali sobiv seanss");
+
+
+        HBox content = new HBox();
+        VBox valikud = new VBox();
+
+        Button osta = new Button("Osta piletid");
+        osta.setAlignment(Pos.BOTTOM_LEFT);
+        osta.setTextAlignment(TextAlignment.CENTER);
+        osta.setStyle("-fx-background-color: #c50000; -fx-border-color:  WHITE; -fx-text-fill: WHITE");
+        osta.setFont(Font.font("Bauhaus 93", 13));
+
+        valikud.setSpacing(10);
+
+        valikud.getChildren().addAll(kuupaev, pealkiri, osta);
+        content.getChildren().add(valikud);
 
         //VBOX
         VBox vBox = new VBox();
         vBox.setPrefSize(600, 400);
         vBox.setPadding(new Insets(15));
-        vBox.getChildren().addAll(borderPane1, choiceBox);
+        vBox.getChildren().addAll(borderPane1, content);
 
         //Lõpu asjad
         vBox.setBackground(bGround);
@@ -95,8 +126,22 @@ public class PiletiOstmine {
         this.stseen = new Scene(vBox);
     }
 
+    public ObservableList<String> seaSeansid(String kuupaev) {
+        ObservableList<String> seanssideNimed = FXCollections.observableArrayList();
+        List<Seanss> seansidKuupaeval = Rakendus.valiSeanss(kuupaev);
+
+        for (Seanss seanss : seansidKuupaeval) {
+            seanssideNimed.add(seanss.getPealkiri());
+        }
+        return seanssideNimed;
+    }
+
     public Scene getStseen() {
         return stseen;
+    }
 
+    public GridPane visuaalneKohaplaan() {
+        GridPane gp =new GridPane();
+        return gp;
     }
 }
