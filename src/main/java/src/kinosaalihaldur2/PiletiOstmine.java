@@ -115,6 +115,10 @@ public class PiletiOstmine {
                 if(content.getChildren().size() == 2) {
                     content.getChildren().remove(1);
                 }
+                if (valikud.getChildren().size() > 2){
+                    valikud.getChildren().remove(2, 4);
+                }
+
             }
             catch (PoleValitudErind e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

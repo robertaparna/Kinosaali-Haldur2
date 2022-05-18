@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Seanss implements Comparable<Seanss>{
     //datetime.plusMinutes(minuteid)
     //datetime string "yyyy-mm-ddThh:mm"
 
-    public Seanss(String pealkiri, String kuupäev, String algus, int kestus, Saal saal) {
+    public Seanss(String pealkiri, String kuupäev, String algus, int kestus, Saal saal) throws DateTimeParseException, AegHoivatudErind {
         String a = kuupäev+ "T"+ algus; // teeme uhe stringi kus on oiges formaadis kuupaev ja kellaaeg
         LocalDateTime b = LocalDateTime.parse(a); // votame sellest datetime objekti alguseks
         LocalDateTime c = b.plusMinutes(kestus); // lisame algusele kestuse et lopp saada
@@ -51,7 +52,7 @@ public class Seanss implements Comparable<Seanss>{
             System.out.println("Seanss lisatud!");
         }
         else {
-            System.out.println("Selleks ajaks on saal juba broneeritud!");
+            throw new AegHoivatudErind();
         }
     }
 
