@@ -133,6 +133,7 @@ public class SaalideHaldamine {
         //visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
         visuaalneKohaplaan.setStyle("-fx-background-color: FFFFFF00");
         visuaalneKohaplaan.setPadding(new Insets(10));
+        VBox.setVgrow(visuaalneKohaplaan, Priority.ALWAYS);
         Tooltip.install(visuaalneKohaplaan, tooltip);
 
         for (int i = 0; i < kohaplaan.size(); i++) {

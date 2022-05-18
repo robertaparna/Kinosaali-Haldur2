@@ -23,7 +23,7 @@ public class Mangufilm extends Seanss{
     public String toString() {
         return "Film: " + super.getPealkiri() + '\n' + "Žanr: " +
                 žanr + '\n' + "Peaosas mängivad näitlejad: " + näitlejad + '\n' +
-                "Teie seanss toimub: " + super.getKuupäev() + " kell: " + super.getAlgus() + '\n' +
+                "Teie seanss toimub: " + super.getKuupäev() + '\n' + " kell: " + super.getAlgus() + '\n' +
                 "Seanss kestab: " + super.getKestus() + " minutit," + '\n' + "Saalis: " + super.getSaal();
     }
 

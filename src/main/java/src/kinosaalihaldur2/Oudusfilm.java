@@ -35,7 +35,7 @@ public class Oudusfilm extends Mangufilm {
     public String toString() {
         return "Film: " + super.getPealkiri() + '\n' + "Žanr: " +
                 super.getŽanr() + '\n' + "Peaosas mängivad näitlejad: " + super.getNäitlejad() + '\n' +
-                "Teie seanss toimub: " + super.getKuupäev() + " kell: " + super.getAlgus() + '\n' +
+                "Teie seanss toimub: " + super.getKuupäev()+ '\n' + " kell: " + super.getAlgus() + '\n' +
                 "Seanss kestab: " + super.getKestus() + " minutit," + '\n' + "Saalis: " + super.getSaal();
     }
 }

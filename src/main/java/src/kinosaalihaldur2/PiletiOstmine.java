@@ -123,7 +123,7 @@ public class PiletiOstmine {
 
         valikud.setSpacing(10);
 
-        valikud.getChildren().addAll(kuupaev, pealkiri, osta);
+        valikud.getChildren().addAll(kuupaev, pealkiri);
         content.getChildren().add(valikud);
 
 
@@ -136,7 +136,11 @@ public class PiletiOstmine {
                 content.getChildren().remove(1);
             }
             content.getChildren().add(visuaalneKohaplaanNupud(pealkiri.getSelectionModel().getSelectedItem()));
-            System.out.println(pealkiri.getSelectionModel().getSelectedItem());
+            if(praeguneSeanss != null) {
+                Text info = new Text(praeguneSeanss.toString());
+                info.setFill(Color.WHITE);
+                valikud.getChildren().addAll(info, osta);
+            }
         });
         pealkiri.setPrefSize(200,30);
         pealkiri.setValue("Vali sobiv seanss");

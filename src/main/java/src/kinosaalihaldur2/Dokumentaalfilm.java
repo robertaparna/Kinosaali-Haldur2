@@ -17,7 +17,7 @@ public class Dokumentaalfilm extends Seanss{
     public String toString() {
         return  "Film: " + super.getPealkiri() + '\n' + "Dokumentaali teema on: " +
                 teema + '\n' + "Dokumentaali tegijateks on: " + tegijad + '\n' +
-                "Teie seanss toimub: " + super.getKuupäev() + " kell: " + super.getAlgus() + '\n' +
+                "Teie seanss toimub: " + super.getKuupäev() + '\n'+ " kell: " + super.getAlgus() + '\n' +
                 "Seanss kestab: " + super.getKestus() + " minutit," + '\n' + "Saalis: " + super.getSaal();
 
     }
