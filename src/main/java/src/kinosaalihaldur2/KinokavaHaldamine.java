@@ -28,7 +28,6 @@ public class KinokavaHaldamine {
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, true));
         Background bGround = new Background(bImg);
 
-
         //"Tagasi" minemise nupp
         Button tagasi = new Button();
         tagasi.setText("Tagasi");

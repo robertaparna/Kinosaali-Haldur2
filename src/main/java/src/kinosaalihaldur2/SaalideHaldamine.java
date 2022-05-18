@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -124,16 +125,19 @@ public class SaalideHaldamine {
         return stseen;
     }
     public GridPane visuaalneKohaplaan(List<List<Integer>> kohaplaan) {
+        Tooltip tooltip = new Tooltip("Valitud saali plaan");
         GridPane visuaalneKohaplaan = new GridPane();
         visuaalneKohaplaan.setAlignment(Pos.BASELINE_CENTER);
         visuaalneKohaplaan.setHgap(5);
         visuaalneKohaplaan.setVgap(5);
-        visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
+        //visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
+        visuaalneKohaplaan.setStyle("-fx-background-color: FFFFFF00");
         visuaalneKohaplaan.setPadding(new Insets(10));
+        Tooltip.install(visuaalneKohaplaan, tooltip);
 
         for (int i = 0; i < kohaplaan.size(); i++) {
             for (int j = 0; j < kohaplaan.get(0).size(); j++) {
-                Rectangle koht = new Rectangle(25, 25, Color.GREEN);
+                Rectangle koht = new Rectangle(25, 25, Color.LIMEGREEN);
                 visuaalneKohaplaan.add(koht, j, i);
             }
         }

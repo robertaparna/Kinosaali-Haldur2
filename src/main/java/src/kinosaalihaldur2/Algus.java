@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -101,17 +100,15 @@ public class Algus extends Application {
 
         //Salvestamise nupp
         Button salvesta = new Button("Salvesta");
-        salvesta.setPrefSize(80, 35);
-        salvesta.setStyle("-fx-background-color: gray; -fx-border-color: black");
-        salvesta.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        salvesta.setOnAction( event -> {
-            Salvestamine salvestamine =  new Salvestamine(pealava, stseen);
-            pealava.setScene(salvestamine.getStseen());
-        });
         salvesta.setPrefSize(100, 45);
         salvesta.setStyle("-fx-background-color: #f85700; -fx-border-color: #ffffff");
         salvesta.setFont(Font.font("Bauhaus 93", 12));
         salvesta.setTextFill(Color.WHITE);
+        salvesta.setOnAction( event -> {
+            Salvestamine salvestamine =  new Salvestamine(pealava, stseen);
+            pealava.setScene(salvestamine.getStseen());
+        });
+
 
         //hbox
         HBox hBox = new HBox(exit);
