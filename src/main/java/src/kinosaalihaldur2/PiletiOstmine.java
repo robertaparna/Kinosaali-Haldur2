@@ -26,6 +26,8 @@ public class PiletiOstmine {
 
     private List<Seanss> seansid;
 
+    private Seanss praeguneSeanss;
+
 
     public PiletiOstmine(Stage pealava, Scene eelmine) {
 
@@ -96,6 +98,28 @@ public class PiletiOstmine {
         osta.setTextAlignment(TextAlignment.CENTER);
         osta.setStyle("-fx-background-color: #c50000; -fx-border-color:  WHITE; -fx-text-fill: WHITE");
         osta.setFont(Font.font("Bauhaus 93", 13));
+        osta.setOnAction(event -> {
+            try {
+                praeguneSeanss.müüValitudKohad();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Tehing õnnestus!");
+                alert.setHeaderText(null);
+                alert.setContentText("Piletid müüdud!");
+                kuupaev.setValue("Vali sobiv kuupäev");
+                pealkiri.setValue("Vali sobiv seanss");
+                alert.showAndWait();
+                if(content.getChildren().size() == 2) {
+                    content.getChildren().remove(1);
+                }
+            }
+            catch (PoleValitudErind e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Tehing ei õnnestunud!");
+                alert.setHeaderText(null);
+                alert.setContentText("Pileti ostmiseks vali kohad");
+                alert.showAndWait();
+            }
+        });
 
         valikud.setSpacing(10);
 
@@ -154,6 +178,7 @@ public class PiletiOstmine {
         for (Seanss seanss : seansid) {
             if(seanss.getPealkiri().equals(seansiNimi)) {
                 valitud = seanss;
+                this.praeguneSeanss = seanss;
             }
         }
 

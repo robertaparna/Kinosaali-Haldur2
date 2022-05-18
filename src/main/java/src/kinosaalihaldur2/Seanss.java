@@ -140,12 +140,28 @@ public class Seanss implements Comparable<Seanss>{
         setKohaplaan(uusKohaplaan);
     }
 
+    public void vabastaKoht(int rida, int koht){
+        List<List<Integer>> uusKohaplaan = List.copyOf(getKohaplaan());
+        uusKohaplaan.get(rida).set(koht, 0);
+        setKohaplaan(uusKohaplaan);
+    }
+
+
     /**
      * märgib valitud kohad hõivatuks ja tühjendab mälu
      */
     public void müüValitudKohad() {
-        for (List<Integer> koht : valitudKohad) {
-            this.kohaplaan.get(koht.get(0)).set(koht.get(1), 1);
+        boolean muudetud = false;
+        for (int i = 0; i < kohaplaan.size(); i++) {
+            for (int j = 0; j < kohaplaan.get(0).size(); j++) {
+                if(kohaplaan.get(i).get(j) == 2) {
+                    kohaplaan.get(i).set(j, 1);
+                    muudetud = true;
+                }
+            }
+        }
+        if (!muudetud) {
+            throw new PoleValitudErind();
         }
         valitudKohad.clear();
     }
