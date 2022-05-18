@@ -11,19 +11,20 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class PiletiOstmine {
     private Scene stseen;
     private ObservableList<String> seanssideNimed = FXCollections.observableArrayList();
+
+    private List<Seanss> seansid;
 
 
     public PiletiOstmine(Stage pealava, Scene eelmine) {
@@ -87,17 +88,6 @@ public class PiletiOstmine {
         kuupaev.setValue("Vali sobiv kuupäev");
         BorderPane borderPane1 = new BorderPane(null, null, hBox1, null, hBox);
 
-
-
-        pealkiri.setItems(seanssideNimed);
-        pealkiri.setStyle("-fx-background-color: rgba(197,0,0,0.81); -fx-border-color: WHITE;" +
-                "-fx-alignment: center");
-
-//        pealkiri.setOnAction(event -> valitudKuupaev.set(kuupaev.getSelectionModel().getSelectedItem()));
-        pealkiri.setPrefSize(200,30);
-        pealkiri.setValue("Vali sobiv seanss");
-
-
         HBox content = new HBox();
         VBox valikud = new VBox();
 
@@ -111,6 +101,24 @@ public class PiletiOstmine {
 
         valikud.getChildren().addAll(kuupaev, pealkiri, osta);
         content.getChildren().add(valikud);
+
+
+        pealkiri.setItems(seanssideNimed);
+        pealkiri.setStyle("-fx-background-color: rgba(197,0,0,0.81); -fx-border-color: WHITE;" +
+                "-fx-alignment: center");
+
+        pealkiri.setOnAction(event -> {
+            if(content.getChildren().size() == 2) {
+                content.getChildren().remove(1);
+            }
+            content.getChildren().add(visuaalneKohaplaanNupud(pealkiri.getSelectionModel().getSelectedItem()));
+            System.out.println(pealkiri.getSelectionModel().getSelectedItem());
+        });
+        pealkiri.setPrefSize(200,30);
+        pealkiri.setValue("Vali sobiv seanss");
+
+
+
 
         //VBOX
         VBox vBox = new VBox();
@@ -129,6 +137,7 @@ public class PiletiOstmine {
     public ObservableList<String> seaSeansid(String kuupaev) {
         ObservableList<String> seanssideNimed = FXCollections.observableArrayList();
         List<Seanss> seansidKuupaeval = Rakendus.valiSeanss(kuupaev);
+        this.seansid = seansidKuupaeval;
 
         for (Seanss seanss : seansidKuupaeval) {
             seanssideNimed.add(seanss.getPealkiri());
@@ -140,8 +149,51 @@ public class PiletiOstmine {
         return stseen;
     }
 
-    public GridPane visuaalneKohaplaan() {
-        GridPane gp =new GridPane();
-        return gp;
+    public GridPane visuaalneKohaplaanNupud(String seansiNimi) {
+        Seanss valitud = null;
+        for (Seanss seanss : seansid) {
+            if(seanss.getPealkiri().equals(seansiNimi)) {
+                valitud = seanss;
+            }
+        }
+
+        GridPane visuaalneKohaplaan = new GridPane();
+
+        //0-vaba 1-voetud 2-valitud
+        if(valitud != null) {
+            visuaalneKohaplaan.setAlignment(Pos.BASELINE_CENTER);
+            visuaalneKohaplaan.setHgap(5);
+            visuaalneKohaplaan.setVgap(5);
+            visuaalneKohaplaan.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(5), null)));
+            visuaalneKohaplaan.setPadding(new Insets(10));
+
+            for (int i = 0; i < valitud.getKohaplaan().size(); i++) {
+                for (int j = 0; j < valitud.getKohaplaan().get(0).size(); j++) {
+                    Rectangle koht = new Rectangle(25,25);
+                    if(valitud.kohtVaba(i, j)) {
+                        koht.setFill(Color.GREEN);
+                    }
+                    else {
+                        koht.setFill(Color.RED);
+                    }
+                    int finalI = i;
+                    int finalJ = j;
+                    Seanss finalValitud = valitud;
+                    koht.setOnMouseClicked(event -> {
+                        if(finalValitud.kohtVaba(finalI, finalJ)) {
+                            koht.setFill(Color.PURPLE);
+                            finalValitud.valiKoht(finalI, finalJ);
+                        }
+                        else if(finalValitud.getKohaplaan().get(finalI).get(finalJ) == 2) {
+                            koht.setFill(Color.GREEN);
+                            finalValitud.getKohaplaan().get(finalI).set(finalJ, 0);
+                        }
+                    });
+                    visuaalneKohaplaan.add(koht, j, i);
+                }
+            }
+
+        }
+        return visuaalneKohaplaan;
     }
 }

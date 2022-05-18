@@ -31,7 +31,19 @@ public class Seanss implements Comparable<Seanss>{
             this.kuupäev = kuupäev;
             this.algus = algus;
             this.kestus = kestus;
-            this.kohaplaan = new ArrayList<>(saal.getKohaplaan());
+
+            List<List<Integer>> kohaplaaniKoopia = new ArrayList<>();
+            int ridu = saal.getKohaplaan().size();
+            int kohti = saal.getKohaplaan().get(0).size();
+
+            for (int i = 0; i < ridu; i++) {
+                kohaplaaniKoopia.add(new ArrayList<>());
+                for (int j = 0; j < kohti; j++) {
+                    kohaplaaniKoopia.get(i).add(0);
+                }
+            }
+            this.kohaplaan = kohaplaaniKoopia;
+
             this.vahemik = vahemik;
             this.saal = saal;
             this.valitudKohad = new ArrayList<>();
@@ -122,8 +134,10 @@ public class Seanss implements Comparable<Seanss>{
      */
     public void valiKoht(int rida, int koht){
         List<Integer> valitud = new ArrayList<>(){{add(rida); add(koht);}};
+        List<List<Integer>> uusKohaplaan = List.copyOf(getKohaplaan());
         valitudKohad.add(valitud);
-        kohaplaan.get(rida).set(koht, 2);
+        uusKohaplaan.get(rida).set(koht, 2);
+        setKohaplaan(uusKohaplaan);
     }
 
     /**
@@ -131,9 +145,13 @@ public class Seanss implements Comparable<Seanss>{
      */
     public void müüValitudKohad() {
         for (List<Integer> koht : valitudKohad) {
-            kohaplaan.get(koht.get(0)).set(koht.get(1), 1);
+            this.kohaplaan.get(koht.get(0)).set(koht.get(1), 1);
         }
         valitudKohad.clear();
+    }
+
+    public void setKohaplaan(List<List<Integer>> kohaplaan) {
+        this.kohaplaan = kohaplaan;
     }
 
     /**
@@ -141,7 +159,7 @@ public class Seanss implements Comparable<Seanss>{
      */
     public void tühistaValitudKohad() {
         for (List<Integer> koht : valitudKohad) {
-            kohaplaan.get(koht.get(0)).set(koht.get(1), 0);
+            this.kohaplaan.get(koht.get(0)).set(koht.get(1), 0);
         }
         valitudKohad.clear();
     }
