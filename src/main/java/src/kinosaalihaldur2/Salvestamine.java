@@ -118,7 +118,7 @@ public class Salvestamine {
 
         //vbox
         VBox vBox = new VBox();
-        vBox.setPrefSize(600, 400);
+        vBox.setPrefSize(800, 500);
         vBox.setPadding(new Insets(15));
         vBox.setStyle("-fx-background-color: rgba(72,58,45,0.66)");
 

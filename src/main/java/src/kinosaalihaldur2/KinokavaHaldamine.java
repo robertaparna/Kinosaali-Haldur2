@@ -69,7 +69,7 @@ public class KinokavaHaldamine {
 
         //vBox
         VBox vBox = new VBox();
-        vBox.setPrefSize(600, 400);
+        vBox.setPrefSize(800, 500);
         vBox.setPadding(new Insets(15));
         vBox.getChildren().addAll(borderPane1);
 

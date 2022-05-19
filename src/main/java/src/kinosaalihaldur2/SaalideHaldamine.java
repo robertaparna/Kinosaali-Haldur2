@@ -72,7 +72,7 @@ public class SaalideHaldamine {
 
         //Vbox
         VBox vBox = new VBox();
-        vBox.setPrefSize(600, 400);
+        vBox.setPrefSize(800, 500);
         vBox.setPadding(new Insets(15));
         vBox.setSpacing(10);
 

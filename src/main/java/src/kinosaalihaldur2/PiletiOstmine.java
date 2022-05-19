@@ -46,7 +46,12 @@ public class PiletiOstmine {
         tagasi.setTextAlignment(TextAlignment.CENTER);
         tagasi.setStyle("-fx-background-color: #c50000; -fx-border-color:  WHITE; -fx-text-fill: WHITE");
         tagasi.setFont(Font.font("Bauhaus 93", 13));
-        tagasi.setOnAction(e -> pealava.setScene(eelmine));
+        tagasi.setOnAction(e -> {
+            pealava.setScene(eelmine);
+            if(praeguneSeanss != null) {
+                praeguneSeanss.tühistaValitudKohad();
+            }
+        });
 
         //tekstikast ja hbox
         HBox hBox = new HBox();
@@ -161,7 +166,7 @@ public class PiletiOstmine {
 
         //vBox
         VBox vBox = new VBox();
-        vBox.setPrefSize(600, 400);
+        vBox.setPrefSize(800, 500);
         vBox.setPadding(new Insets(15));
         content.setSpacing(20); //vahe choiceboxi ja kohaplaani vahel
         vBox.getChildren().addAll(borderPane1, content);

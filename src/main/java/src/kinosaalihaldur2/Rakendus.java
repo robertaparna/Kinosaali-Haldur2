@@ -12,11 +12,12 @@ public class Rakendus {
     }
 
     public static void saalidAlgus() {
-        saalid.add(new Saal("saal3", 3, 7));
-        saalid.add(new Saal("saal4", 5, 9));
-        new Mangufilm("Fight Club", saalid.get(0),"marul","Brad Pitt","2022-04-07", "12:00", 90);
-        new Oudusfilm("Saw", saalid.get(0),"psyhholoogiline triller","Tobin Bell", 16, "2022-04-05", "12:00", 90);
-        new Dokumentaalfilm("Planet Earth", "2022-04-06", "12:00", 90, saalid.get(1), "BBC", "loodus");
+        saalid.add(new Saal("väike saal", 3, 7));
+        saalid.add(new Saal("keskmine saal", 5, 9));
+        saalid.add(new Saal("suur saal", 7, 11));
+//        new Mangufilm("Fight Club", saalid.get(0),"marul","Brad Pitt","2022-04-07", "12:00", 90);
+//        new Oudusfilm("Saw", saalid.get(0),"psyhholoogiline triller","Tobin Bell", 16, "2022-04-05", "12:00", 90);
+//        new Dokumentaalfilm("Planet Earth", "2022-04-06", "12:00", 90, saalid.get(1), "BBC", "loodus");
     }
 
     public static void setSaalid(List<Saal> saalid) {

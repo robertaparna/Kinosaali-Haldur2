@@ -110,7 +110,7 @@ public class Algus extends Application {
 
         //vbox
         VBox vBox = new VBox();
-        vBox.setPrefSize(600,400); //Sama suur kui stseen
+        vBox.setPrefSize(800 , 500); //Sama suur kui stseen
         vBox.autosize();
         vBox.setPadding(new Insets(15));
 

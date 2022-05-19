@@ -175,10 +175,13 @@ public class Seanss implements Comparable<Seanss>{
      * märgib valitud kohad vabaks ja tühjendab mälu
      */
     public void tühistaValitudKohad() {
-        for (List<Integer> koht : valitudKohad) {
-            this.kohaplaan.get(koht.get(0)).set(koht.get(1), 0);
+        for (int i = 0; i < kohaplaan.size(); i++) {
+            for (int j = 0; j < kohaplaan.get(0).size(); j++) {
+                if(kohaplaan.get(i).get(j) == 2) {
+                    kohaplaan.get(i).set(j, 0);
+                }
+            }
         }
-        valitudKohad.clear();
     }
 
     /**
